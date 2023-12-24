@@ -32,6 +32,11 @@ function App() {
     characterSets.push(symbols);
   }
 
+  if(characterSets.length === 0){
+    alert("Select atleast one checkbox to generate the password");
+    return;
+  }
+
   let checkIncluded = characterSets.map(()=> false);
 
   while(checkIncluded.includes(false)){
