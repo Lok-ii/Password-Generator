@@ -1,38 +1,192 @@
+@import url("https://fonts.googleapis.com/css2?family=Tomorrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  width: 85%;
+  /* height: 85vh; */
+  padding: 2rem 0;
+  font-family: "Tomorrow", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  border: 1px solid #00f0ff;
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 3.5rem;
 }
 
-.App-link {
-  color: #61dafb;
+.heading {
+  color: #f8ef00;
+  letter-spacing: 0.8rem;
+  padding-bottom: 3rem;
+  font-size: 2.5rem;
+  text-align: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.passwordContainer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 70%;
+  height: 4rem;
+  padding: 0 1rem;
+  background-color: rgb(0, 240, 255, 0.12);
+  justify-content: space-between;
+  border: 3px solid #00f0ff;
+  color: #00f0ff;
+  letter-spacing: 0.3rem;
+  font-size: 1.1rem;
 }
+
+.icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.icons svg {
+  cursor: pointer;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.buttons button {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.3rem 1.5rem;
+  font-weight: 700;
+  font-family: inherit;
+  letter-spacing: 0.15rem;
+  position: relative;
+  background-color: #f8ef00;
+  border: none;
+  box-shadow: 0.18rem 0 0 0 #ff003c;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+  outline: none;
+}
+
+.buttons button:active {
+  transform: scale(1.01);
+}
+
+.bl {
+  width: 0;
+  height: 0;
+  position: absolute;
+  border-color: #000;
+  bottom: -1px;
+  left: -1px;
+  border-bottom: 18px solid black;
+  border-right: 18px solid transparent;
+}
+
+.r25 {
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+  font-size: 0.5rem;
+  background-color: #000;
+  color: #f8ef00;
+  font-weight: 300;
+  padding: 0.1rem 0.2rem;
+  box-shadow: -0.12rem 0 0 0 #ff003c;
+}
+
+.passwordLength {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  width: 70%;
+  align-items: center;
+}
+
+#length {
+  -webkit-appearance: none;
+  appearance: none;
+  background: white;
+  cursor: pointer;
+  width: 60%;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background: #00f0ff;
+  height: 0.12rem;
+  width: 100%;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  margin-top: -9px; /* Centers thumb on the track */
+  background-color: #f8ef00;
+  height: 1.2rem;
+  width: 1rem;
+}
+
+/* =========  CheckBox Styles  ============ */
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 1rem;
+  column-gap: 1rem;
+  width: 90%;
+}
+
+.upperCase,
+.lowerCase,
+.numbers,
+.symbols {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  margin: 0;
+  font: inherit;
+  color: #f8ef00;
+  outline: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 0.15rem solid #f8ef00;
+  -webkit-appearance: none;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 1.5rem;
+  height: 1.5rem;
+  transform: scale(0);
+  transition: transform 0.3s ease-in-out;
+  box-shadow: inset 1rem 1rem #f8ef00;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+  background-color: #f8ef00;
+}
+
+.label{
+  cursor: pointer;
+}
+
+
+/* ======  COPIED ====== */
+
