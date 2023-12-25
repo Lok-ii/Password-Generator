@@ -12,65 +12,102 @@ function App() {
   let [number, setNumber] = useState(true);
   let [symbol, setSymbol] = useState(true);
   let [finalPassword, setFinalPassword] = useState("");
+  let [displayCopied, setDisplay] = useState("hidden");
+  let [displayError, setError] = useState("hidden");
 
-
-  let generatePassword = ()=>{
+  let generatePassword = () => {
     setFinalPassword("");
 
     let characterSets = [];
 
-  if (upper) {
-    characterSets.push(upperCase);
-  }
-  if (lower) {
-    characterSets.push(lowerCase);
-  }
-  if (number) {
-    characterSets.push(numbers);
-  }
-  if (symbol) {
-    characterSets.push(symbols);
-  }
-
-  if(characterSets.length === 0){
-    alert("Select atleast one checkbox to generate the password");
-    return;
-  }
-
-  let checkIncluded = characterSets.map(()=> false);
-
-  while(checkIncluded.includes(false)){
-    let randomSetIndex = Math.floor(Math.random() * characterSets.length);
-    if(!checkIncluded[randomSetIndex]){
-      let selectedArray = characterSets[randomSetIndex];
-      let charIndex = Math.floor(Math.random() * selectedArray.length);
-      setFinalPassword((prevPassword)=>{
-        let updatedPassword = prevPassword + selectedArray[charIndex];
-        return updatedPassword;
-      });
-
-      checkIncluded[randomSetIndex] = true;
+    if (upper) {
+      characterSets.push(upperCase);
     }
-  }
+    if (lower) {
+      characterSets.push(lowerCase);
+    }
+    if (number) {
+      characterSets.push(numbers);
+    }
+    if (symbol) {
+      characterSets.push(symbols);
+    }
 
-    for(let i = 0; i < length; i++){
-      let randomNumber = (Math.floor(Math.random() * characterSets.length));
+    if (characterSets.length === 0) {
+      // alert("Select atleast one checkbox to generate the password");
+      setError("Select atleast one checkbox to generate the password");
+      setTimeout(()=>{setError("hidden")},3000);
+      return;
+    }
+
+    let checkIncluded = characterSets.map(() => false);
+
+    while (checkIncluded.includes(false)) {
+      let randomSetIndex = Math.floor(Math.random() * characterSets.length);
+      if (!checkIncluded[randomSetIndex]) {
+        let selectedArray = characterSets[randomSetIndex];
+        let charIndex = Math.floor(Math.random() * selectedArray.length);
+        setFinalPassword((prevPassword) => {
+          let updatedPassword = prevPassword + selectedArray[charIndex];
+          return updatedPassword;
+        });
+
+        checkIncluded[randomSetIndex] = true;
+      }
+    }
+
+    for (let i = 0; i < length; i++) {
+      let randomNumber = Math.floor(Math.random() * characterSets.length);
       let selectedSet = characterSets[randomNumber];
-      let anotherRandomNumber = (Math.floor(Math.random() * selectedSet.length));
+      let anotherRandomNumber = Math.floor(Math.random() * selectedSet.length);
       setFinalPassword((prevPassword) => {
         let updatedPassword = prevPassword + selectedSet[anotherRandomNumber];
         return updatedPassword;
       });
     }
-  }
+  };
 
-  function copied(){
+  function copied() {
     navigator.clipboard.writeText(finalPassword);
-    alert('Copied to clipboard');
+    // alert('Copied to clipboard');
+    if (finalPassword !== "") {
+      setDisplay("shown");
+      setTimeout(() => {
+        setDisplay("hidden");
+      }, 1500);
+    }
   }
 
   return (
     <div className="App">
+      <div className="container" id={displayCopied}>
+        <div className="stack" style={{ "--stacks": 3 }}>
+          <span style={{ "--index": 0 }}>
+            PASSWORD COPIED <i class="fa-solid fa-check"></i>
+          </span>
+          <span style={{ "--index": 1 }}>
+            PASSWORD COPIED <i class="fa-solid fa-check"></i>
+          </span>
+          <span style={{ "--index": 2 }}>
+            PASSWORD COPIED <i class="fa-solid fa-check"></i>
+          </span>
+        </div>
+      </div>
+
+      <div className="container again" id={displayError}>
+        <div className="stack" style={{ "--stacks": 3 }}>
+          <span style={{ "--index": 0 }}>
+          Select atleast one checkbox to generate the password
+          </span>
+          <span style={{ "--index": 1 }}>
+          Select atleast one checkbox to generate the password
+          </span>
+          <span style={{ "--index": 2 }}>
+          Select atleast one checkbox to generate the password
+          </span>
+        </div>
+      </div>
+
       <h1 className="heading">PASSWORD GENERATOR</h1>
       <div className="passwordContainer">
         <p className="password">{finalPassword}</p>
@@ -194,7 +231,9 @@ function App() {
               setUpper(!upper);
             }}
           />
-          <label htmlFor="upper" className="label">Uppercase Letters</label>
+          <label htmlFor="upper" className="label">
+            Uppercase Letters
+          </label>
         </div>
         <div className="lowerCase">
           <input
@@ -206,7 +245,9 @@ function App() {
               setLower(!lower);
             }}
           />
-          <label htmlFor="lower" className="label">Lowercase Letters</label>
+          <label htmlFor="lower" className="label">
+            Lowercase Letters
+          </label>
         </div>
         <div className="numbers">
           <input
@@ -218,7 +259,9 @@ function App() {
               setNumber(!number);
             }}
           />
-          <label htmlFor="number" className="label">Numbers</label>
+          <label htmlFor="number" className="label">
+            Numbers
+          </label>
         </div>
         <div className="symbols">
           <input
@@ -230,7 +273,9 @@ function App() {
               setSymbol(!symbol);
             }}
           />
-          <label htmlFor="specialCharacters" className="label">Symbols</label>
+          <label htmlFor="specialCharacters" className="label">
+            Symbols
+          </label>
         </div>
       </div>
     </div>
