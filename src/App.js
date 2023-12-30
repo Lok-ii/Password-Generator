@@ -1,5 +1,6 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Password from "./Components/Password";
 
 function App() {
   let upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -11,9 +12,10 @@ function App() {
   let [upper, setUpper] = useState(true);
   let [number, setNumber] = useState(true);
   let [symbol, setSymbol] = useState(true);
-  let [finalPassword, setFinalPassword] = useState("");
+  let [finalPassword, setFinalPassword] = useState("s2K&34NlO%2E");
   let [displayCopied, setDisplay] = useState("hidden");
   let [displayError, setError] = useState("hidden");
+  let [passwordArray, setPasswordArray] = useState([]);
 
   let generatePassword = () => {
     setFinalPassword("");
@@ -65,12 +67,24 @@ function App() {
         return updatedPassword;
       });
     }
+    setPasswordArray((prev)=>{
+      const updatedList = [...prev, finalPassword];
+      localStorage.setItem("passwordList", JSON.stringify(updatedList));
+      return updatedList;
+    });
+
   };
 
-  function copied() {
-    navigator.clipboard.writeText(finalPassword);
+  useEffect(()=>{
+    const storedPasswords = JSON.parse(localStorage.getItem("passwordList")) || [];
+    console.log(storedPasswords);
+    setPasswordArray(storedPasswords);
+  }, []);
+
+  function copied(password) {
+    navigator.clipboard.writeText(password);
     // alert('Copied to clipboard');
-    if (finalPassword !== "") {
+    if (password !== "") {
       setDisplay("shown");
       setTimeout(() => {
         setDisplay("hidden");
@@ -79,6 +93,7 @@ function App() {
   }
 
   return (
+    <>
     <div className="App">
       <div className="container" id={displayCopied}>
         <div className="stack" style={{ "--stacks": 3 }}>
@@ -155,7 +170,7 @@ function App() {
         </div>
       </div>
       <div className="buttons">
-        <button className="copy" onClick={copied}>
+        <button className="copy" onClick={()=>{copied(finalPassword)}}>
           <span>COPY PASSWORD_</span>
           <svg
             width="18"
@@ -279,6 +294,16 @@ function App() {
         </div>
       </div>
     </div>
+
+    <div className="historyContainer">
+      <p className="historyHeading">Password History</p>
+      <div className="passwordList">
+        {
+          (passwordArray.length === 0) ? <p>No Passwords Yet</p> : passwordArray.map((currPassword)=> <Password copied={copied} pass={currPassword} />)
+        }
+      </div>
+    </div>
+    </>
   );
 }
 
