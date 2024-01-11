@@ -34,3 +34,9 @@ body {
     padding: 0;
   }
 }
+
+@media screen and (max-width: 850px){
+  #root{
+    flex-direction: column;
+  } 
+}

@@ -198,7 +198,6 @@ input[type="checkbox"]:checked::before {
   gap: 2rem;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   color: white;
 }
 
@@ -340,5 +339,12 @@ input[type="checkbox"]:checked::before {
   .passwordLength{
     width: 95%;
     gap: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 850px){
+  .historyContainer{
+    width: 95%;
+    align-items: center;
   }
 }
